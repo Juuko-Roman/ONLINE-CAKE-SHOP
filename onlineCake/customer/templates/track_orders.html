@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <title>shopping home page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/font-awesome/css/font-awesome.css' %}">
+  <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
+  <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
+  <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
+</head>
+    <body>
+        {% include "header.html" %}
+
+        <div class="slider" >
+        </div>
+        <div style="height: 50px"></div>        
+        <div class="container">
+            <h2 style="text-align: center">TRACK YOUR ORDER</h2>
+            <h5 style="text-align: center">Please enter your Order ID in the box below and press Enter. This was given to you on your receipt and in the confirmation email you should have received.</h5>
+            <form action="/order_details/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="orderId">Order Id:</label>
+                    <input type="text" id="orderId" name="orderId" placeholder="Enter order Id" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" placeholder="Enter Your Email" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-danger">TRACK</button>
+                
+            </form>
+        </div>
+        <div style="height: 50px"></div>
+        {% include "supporters.html" %}
+        {% include "footer.html" %}
+        
+        <script src="{% static 'Assets/Js/image-slider.js' %}" ></script>        
+    </body>
+</html>

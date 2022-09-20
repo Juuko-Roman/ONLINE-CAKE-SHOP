@@ -1,0 +1,131 @@
+
+<html>
+{% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <title>shopping home page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/font-awesome/css/font-awesome.css' %}">
+  <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
+  <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
+  <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
+</head>
+    <body>
+        {% include "header.html" %}
+        <div class="slider" >
+        </div>
+        <div class="container">
+            <form action="/my_cart/" method="post">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr> 	 	 	 	 	 	
+                            <th>Remove</th>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price Per unit</th>
+                            <th>Shipping Charge</th>
+                            <th>Grand Total</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
+                            </td>
+                            
+                            <td>
+                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/wedding1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
+                            </td>
+                            <td>
+                                <div >cake</div>
+                            </td>
+                            
+                            <td>
+                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
+                            </td>
+                            <td>
+                                <div >UGX 200000</div>
+                            </td>`
+                            <td>
+                                <div >UGX 50000</div>
+                            </td>
+                            <td>
+                                <div >UGX 250000</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
+                            </td>
+                            
+                            <td>
+                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/romance1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
+                            </td>
+                            <td>
+                                <div >cake</div>
+                            </td>
+                            
+                            <td>
+                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
+                            </td>
+                            <td>
+                                <div >UGX 200000</div>
+                            </td>`
+                            <td>
+                                <div >UGX 50000</div>
+                            </td>
+                            <td>
+                                <div >UGX 250000</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
+                            </td>
+                            
+                            <td>
+                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/graduation1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
+                            </td>
+                            <td>
+                                <div >cake</div>
+                            </td>
+                            
+                            <td>
+                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
+                            </td>
+                            <td>
+                                <div >UGX 200000</div>
+                            </td>`
+                            <td>
+                                <div >UGX 50000</div>
+                            </td>
+                            <td>
+                                <div >UGX 250000</div>
+                            </td>
+                        </tr>
+                                                
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div class="shopping-cart-btns">
+                                    <span class="">
+                                        <a href="/" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
+                                        <input type="submit" name="submit" value="Update shopping cart" class="btn btn-upper btn-primary pull-right outer-right-xs">
+                                    </span>
+                                    </form><!-- form -->
+                                </div><!-- /.shopping-cart-btns -->
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+        </div>
+        {% include "supporters.html" %}
+        {% include "footer.html" %}  
+        
+        <script src="{% static 'Assets/Js/image-slider.js' %}" ></script>        
+    </body>
+</html>
