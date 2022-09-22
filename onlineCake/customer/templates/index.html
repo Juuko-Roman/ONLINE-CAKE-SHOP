@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/font-awesome/css/font-awesome.css' %}">
 </head>
+
     <body>
         {% include "header.html" %}
         {% include "side_menu.html" %}
@@ -72,7 +73,7 @@
                         
                     </div>
                     
-                    <div class="add-to-cart"><a href="/my_cart">ADD TO CART</a></div>                    
+                    <div class="add-to-cart"><a class="cart" data-product={{product.id}}  style="cursor: default">ADD TO CART</a></div>                    
                 </div>
             </div>
             
