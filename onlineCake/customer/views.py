@@ -46,7 +46,7 @@ def my_cart(request):
             'getTotal':total
         }
         items.append(item)
-    print(item['product'].get('imageURL'))
+
     context={'categories':categories,'items':items,'order':order,'cartItems':cartItems}        
     return render(request, 'my_cart.html', context)    
 
