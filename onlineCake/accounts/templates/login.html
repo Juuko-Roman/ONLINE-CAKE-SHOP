@@ -13,11 +13,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/mycss.css' %}" />
-    <title>Document</title>
+    <title>login</title>
 </head>   
     <body>
         <header >
-            <h1 style="color: white;">WELCOME TO ROMAN ENTERPRISES</h1>
+            <h1 style="color: white;">WELCOME</h1>
         </header>
         <main class="d-flex w-100">
             <div class="container d-flex flex-column">
@@ -37,7 +37,7 @@
                                         <div class="text-center">
                                             <img src="{% static 'img/avatars/avatar.jpg' %}" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
                                         </div>
-                                        <form action="login/" method="POST">
+                                        <form action="/accounts/Alogin/" method="POST">
                                             {% csrf_token %}
                                             <div class="mb-3">
                                                 <label class="form-label">Email</label>
@@ -75,7 +75,7 @@
     
         <script src="js/app.js"></script>
         <footer >
-            <p>Roman Enterprises Kampala <a href="#">ROMAN_Codes&trade;</a></p>
+            <p>ONLINE CAKE SHOP, Kampala <a href="#">ROMAN_Codes&trade;</a></p>
         </footer>
     </body>
     <script>

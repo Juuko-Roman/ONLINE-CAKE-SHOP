@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
 from django.http import HttpResponse
 
 def index(request):
-    return render(request, 'login.html')
+    return redirect('/accounts/Alogin/')
 
-def dashboard(request):
-    return render(request, 'dashboard.html')    
+def home(request):
+    return render(request, 'home.html')
+        

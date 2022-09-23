@@ -21,3 +21,19 @@ def register(request):
         return redirect('/accounts/login/')     
     else:
         return render(request, 'register.html', context)  
+
+def Alogin(request):
+    categories=Category.objects.all()
+    context={'categories':categories}         
+    if request.method== "POST":
+        return redirect('/dashboard/home/')      
+    else:
+        return render(request, 'login.html', context)
+        
+def Aregister(request):
+    categories=Category.objects.all()
+    context={'categories':categories}         
+    if request.method== "POST":
+        return redirect('/dashboard/login/')     
+    else:
+        return render(request, 'register.html', context)          

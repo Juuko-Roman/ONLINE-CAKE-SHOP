@@ -5,6 +5,58 @@
     <title>Cake category</title>
     <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/font-awesome/css/font-awesome.css' %}">
+    <script type="text/javascript">
+        function getToken(name){
+            var cookieValue=null;
+            if(document.cookie && document.cookie !==''){
+
+                //split cookie string and get all individual name=value pairs in an array
+                var cookieArray=document.cookie.split(";");
+
+                //loop through the array elements
+                for(var i=0; i<cookieArray.length; i++){
+                    var cookie=cookieArray[i].trim();
+
+                    //Doesthis cookiebegin with the name we want 
+                    if(cookie.substring(0,name.length+1)==(name+'=')){
+                        // decode the value and return 
+                        cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                        break;
+                    }
+                }        
+            }
+            //return cookie value
+            return cookieValue;
+        }
+        var csrftoken=getToken('csrftoken'); 
+        
+        function getCookie(name){
+            //split cookie string and get all individual name=value pairs in an array
+            var cookieArray=document.cookie.split(";");
+
+            //loop through the array elements
+            for(var i=0; i<cookieArray.length; i++){
+                var cookiePair=cookieArray[i].split("=");
+
+                //remove space at the begining of cookie name and compare it with the given string
+                if(name==cookiePair.trim){
+                    // decode the value and return 
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            //return null if not found
+            return null;
+        }        
+        var cart=JSON.parse(getCookie('cart'));
+        if(cart==undefined){
+            cart={};
+            console.log("Cart was created");
+            document.cookie='cart='+JSON.stringify(cart)+";domaain=;path=/"
+        }
+    
+        console.log('Cart: ',cart)        
+        
+    </script>
 </head>
     <body>
         {% include "header.html" %}
@@ -43,7 +95,7 @@
                         
                     </div>
                     
-                    <div class="add-to-cart"><a href="/my_cart/">ADD TO CART</a></div>                    
+                    <div class="add-to-cart"><a class="cart" data-product={{product.id}}  style="cursor: default">ADD TO CART</a></div>           
                 </div>
             </div>
             {% endfor %}

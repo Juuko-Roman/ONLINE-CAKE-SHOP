@@ -196,6 +196,7 @@ div.slider{
 	margin-left: 70px;
 	margin-top: 20px;
 	height: 250px;
+	overflow-wrap: ;
 }
 .fade{
 	animation-name: fade;
@@ -360,6 +361,7 @@ footer .copyright div{
 	margin-top: 230px;
 	color: whitesmoke;
 	text-align: center;
+	
 }
 
 div.category{

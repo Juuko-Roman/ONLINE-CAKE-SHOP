@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
   <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
   <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'Assets/Js/getCookie.js" ></script>
 </head>
     <body>
         {% include "header.html" %}
@@ -31,81 +32,33 @@
                     </thead>
                     
                     <tbody>
+                        {% for item in items%}
                         <tr>
                             <td>
                                 <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
                             </td>
                             
                             <td>
-                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/wedding1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
+                                <div style="margin-top: 1px;"><img src="{{item.product.imageURL}}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
                             </td>
                             <td>
-                                <div >cake</div>
+                                <div >{{item.product.name}}</div>
                             </td>
                             
                             <td>
-                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
+                                <div ><input type="number" name="qty" placeholder="{{item.quantity}}" min="1" style="width: 60px"></div>
                             </td>
                             <td>
-                                <div >UGX 200000</div>
+                                <div >UGX {{item.product.price}}</div>
                             </td>`
                             <td>
-                                <div >UGX 50000</div>
+                                <div >UGX {{item.product.price}}</div>
                             </td>
                             <td>
-                                <div >UGX 250000</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
-                            </td>
-                            
-                            <td>
-                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/romance1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
-                            </td>
-                            <td>
-                                <div >cake</div>
-                            </td>
-                            
-                            <td>
-                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
-                            </td>
-                            <td>
-                                <div >UGX 200000</div>
-                            </td>`
-                            <td>
-                                <div >UGX 50000</div>
-                            </td>
-                            <td>
-                                <div >UGX 250000</div>
+                                <div >UGX {{item.product.price}}</div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
-                            </td>
-                            
-                            <td>
-                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/graduation1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
-                            </td>
-                            <td>
-                                <div >cake</div>
-                            </td>
-                            
-                            <td>
-                                <div ><input type="number" name="qty" placeholder="2" min="1" style="width: 60px"></div>
-                            </td>
-                            <td>
-                                <div >UGX 200000</div>
-                            </td>`
-                            <td>
-                                <div >UGX 50000</div>
-                            </td>
-                            <td>
-                                <div >UGX 250000</div>
-                            </td>
-                        </tr>
+                        {% endfor %}
                                                 
                     </tbody>
                     <tfoot>
@@ -114,7 +67,7 @@
                                 <div class="shopping-cart-btns">
                                     <span class="">
                                         <a href="/" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
-                                        <input type="submit" name="submit" value="Update shopping cart" class="btn btn-upper btn-primary pull-right outer-right-xs">
+                                        <input type="submit" name="submit" value="Proceed To Checkout" class="btn btn-upper btn-primary pull-right outer-right-xs">
                                     </span>
                                     </form><!-- form -->
                                 </div><!-- /.shopping-cart-btns -->
@@ -192,6 +145,6 @@
         {% include "supporters.html" %}
         {% include "footer.html" %}  
         
-        <script src="{% static 'Assets/Js/image-slider.js' %}" ></script>        
+    
     </body>
 </html>

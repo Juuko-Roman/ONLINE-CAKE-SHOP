@@ -12,5 +12,5 @@ urlpatterns = [
     path('track_order/', views.track_order),
     path('track_orders/', views.track_orders), 
     path('checkout/', views.checkout), 
-    path('updateItem/', views.UpdateItem),     
+    # path('updateItem/', views.UpdateItem),     
 ]
