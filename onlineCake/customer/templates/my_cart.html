@@ -9,7 +9,55 @@
   <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
   <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
   <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'Assets/Js/getCookie.js" ></script>
+  <script type="text/javascript">
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken')
+
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+    var cart = JSON.parse(getCookie('cart'))
+
+    if (cart == undefined){
+        cart = {}
+        console.log('Cart Created!', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
+
+</script>
 </head>
     <body>
         {% include "header.html" %}
@@ -18,6 +66,7 @@
 
                 {% csrf_token %}
                 <table class="table table-bordered">
+                    
                     <thead>
                         <tr> 	 	 	 	 	 	
                             <th>Remove</th>
@@ -35,7 +84,7 @@
                             {% for item in items%}
                         <tr>
                             <td>
-                                <div style="margin-top: 60px"><input type="checkbox"  name="delete" style="width: 20px; height: 20px; margin-left: 40px; outline: none" value="female"/></div>
+                                <div style="margin-top: 60px; margin-left: 30px;" class="del"><i style="font-size: 24px; color:red;  " class="fa fa-remove"></i></td></div>
                             </td>
                             
                             <td>
@@ -46,40 +95,59 @@
                             </td>
                             
                             <td>
-                                <div ><input type="number" name="qty" placeholder="{{item.quantity}}" min="1" style="width: 60px"></div>
+                                
+                                    <p style="font-size: 22px; margin-left: 20px;" class="quantity">{{item.quantity}}</p>
+                                    <div style="margin-left: 10px" class="quantity">
+                                        <img  data-product="{{item.product.id}}" data-action="add" class="chg-quantity cart" src="{% static  'Assets/images/arrow-up.png' %}">
+                                
+                                        <img  data-product="{{item.product.id}}" data-action="remove" class="chg-quantity cart" src="{% static  'Assets/images/arrow-down.png' %}">
+                                    </div>
+                                
                             </td>
                             <td>
                                 <div >UGX {{item.product.price}}</div>
                             </td>`
                             <td>
-                                <div >UGX {{item.product.price}}</div>
+                                <div >UGX {{item.product.shippingFee}}</div>
                             </td>
                             <td>
-                                <div >UGX {{item.product.price}}</div>
+                                <div >UGX {{item.getTotal}}</div>
                             </td>
                         </tr>
                             {% endfor %}
-                        {% else %}   
-                        <tr>
-                            <td colspan="7"><h1><center>your cart is currently empty</center></h1></td>
-                        </tr> 
-                        {% endif %}
+
                         
                                                 
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="7">
+                                <h3 style="text-align: center">Total Items: &nbsp; &nbsp; &nbsp;<span style="color: green; font-size: 40px"> {{order.getCartItems}}</span></h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7">
+                                <h3 style="text-align: center">Total Amount: &nbsp; &nbsp; &nbsp;<span style="color: green; font-size: 40px">UGX. {{order.getCartTotal}}</span></h3>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="7">
                                 <div class="shopping-cart-btns">
                                     <span class="">
                                         <a href="/" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
-                                        <input type="submit" name="submit" value="Proceed To Checkout" class="btn btn-upper btn-primary pull-right outer-right-xs">
+
+                                        <input type="submit" name="submit" value="Proceed to check out" class="btn btn-upper btn-primary pull-right outer-right-xs">
                                     </span>
                                     </form><!-- form -->
                                 </div><!-- /.shopping-cart-btns -->
                             </td>
                         </tr>
                     </tfoot>
+                    {% else %}   
+                    <tr>
+                        <td colspan="7"><h1><center>your cart is currently empty</center></h1></td>
+                    </tr> 
+                    {% endif %}
                 </table>
         </div>
 	<div class="" style=" height: 400px">
@@ -88,7 +156,7 @@
                 <div style="height: 100%; width: 40%;  margin-left: 70px; float: left">
                     <h4 style="font-size: 40px;">Billing Details</h4>
                     <div class="login-details" style="width: 100%;height: 550px">
-                        <form action="login.jsp">
+                        <form action="/accounts/login/">
                         <div style="width: 100%;height: 80% ">
                             <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                 <label for="BAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
@@ -150,7 +218,61 @@
 
         {% include "supporters.html" %}
         {% include "footer.html" %}  
-        
+        <script>
+            var deleteIcon=document.getElementsByClassName("del");
+
+            for(var i=0; i<deleteIcon.length; i++){
+                deleteIcon[i].addEventListener('click',function(){
+
+                    alert("Reduce the quantity to 0");
+                })
+            }   
+            
+            
+            var addtoCartButtons=document.getElementsByClassName("cart");
+
+            for(var i=0; i<addtoCartButtons.length; i++){
+            addtoCartButtons[i].addEventListener('click',function(){
+                var productID=this.dataset.product;
+                var action=this.dataset.action;
+                
+                addCookie(productID, action);
+                // UpdateUserOrder(productID);  this is for authenticatedusers
+            })
+            }
+
+
+
+            function addCookie(productId, action){
+
+            if (action == 'add'){
+
+                if (cart[productId] == undefined){
+                cart[productId] = {'quantity':1}
+
+                }else{
+                    cart[productId]['quantity'] += 1
+                }                  
+
+            }
+
+            if (action == 'remove'){
+                cart[productId]['quantity'] -= 1
+
+                if (cart[productId]['quantity'] <= 0){
+                    delete cart[productId];
+                }
+            }
+            console.log('CART:', cart)
+            document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            
+            location.reload()
+            }
+
+
+
+        </script>
+
     
     </body>
 </html>

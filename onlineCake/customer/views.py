@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 from itertools import product
 from multiprocessing import context
 from urllib import response
@@ -5,13 +6,17 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
 import json
+from .utils import *
 
 # Create your views here.
 
 def index(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    
     products=Product.objects.all()
     categories=Category.objects.all()
-    context={'products':products,'categories':categories}
+    context={'products':products,'categories':categories,'cartItems':cartItems}
     return render(request, 'index.html',context)
 
 def my_cart(request):  
@@ -30,7 +35,7 @@ def my_cart(request):
     for i in cart:
         cartItems += cart[i]["quantity"]
         product=Product.objects.get(id=i)
-        total=(product.price*cart[i]["quantity"])
+        total=(product.priceAfterDiscount*cart[i]["quantity"]+product.shippingFee)
 
         order['getCartTotal']+=total
         order['getCartItems']+=cart[i]["quantity"]
@@ -39,7 +44,8 @@ def my_cart(request):
             'product':{
                 'id':product.id,
                 'name':product.name,
-                'price':product.price,
+                'price':product.priceAfterDiscount,
+                'shippingFee':product.shippingFee,
                 'imageURL':product.image.url,
             },
             'quantity':cart[i]["quantity"],
@@ -50,11 +56,16 @@ def my_cart(request):
     context={'categories':categories,'items':items,'order':order,'cartItems':cartItems}        
     return render(request, 'my_cart.html', context)    
 
-def category(request):
-    products=Product.objects.filter(category=1)    
+def category(request,id):
+    print(id)
+    data = cartData(request)
+    cartItems = data['cartItems']
+    
+    
+    products=Product.objects.filter(category=id)    
     categories=Category.objects.all()
-    categToDisplay=Category.objects.filter(id=1)
-    context={'products':products,'categories':categories,'categ':categToDisplay}      
+    categToDisplay=Category.objects.filter(id=id)
+    context={'products':products,'categories':categories,'categ':categToDisplay,'cartItems':cartItems}      
     return render(request, 'category.html',context)
 
 def order_details(request):
@@ -80,7 +91,31 @@ def track_orders(request):
 def checkout(request):
     categories=Category.objects.all()
     context={'categories':categories}     
-    return render(request, 'index.html',context)                
+    return render(request, 'checkout.html',context)  
+
+def likeIncrease(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    
+    product = Product.objects.get(id=productId)
+    product.likes+=1;
+
+    newLikes=product.likes
+    product.save()
+
+    return JsonResponse(newLikes, safe=False)
+
+def likeDecrease(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    
+    product = Product.objects.get(id=productId)
+    product.likes-=1;
+
+    newLikes=product.likes
+    product.save()
+
+    return JsonResponse(newLikes, safe=False)    
 
 # def UpdateItem(request):
 #     data=json.loads(request.body)

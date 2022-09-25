@@ -17,10 +17,12 @@
                 <button type="submit"><li class="icon fa fa-search"></li></button>
             </div>
             <div class="cart-details">
-                <div class="cart-total">CART-<span class="amount" style="color:green">UGX 180000</span></div>
+                <div class="cart-total">CART - <span class="amount" style="color:green">UGX  &nbsp; &nbsp; ...</span></div>
                 <div class="cart-icon">
                     <a href="/my_cart/"><i class="icon fa fa-shopping-cart"></i></a>
-                    <div style="background-color: red; border-radius: 50%; text-align: center; color: white; padding: 5px; width: 30px; margin-top: -40px; margin-left: 10px;">99</div>
+                    <div style="background-color: red; border-radius: 50%; text-align: center; color: white; padding: 5px; width: 30px; margin-top: -40px; margin-left: 10px;">
+                        {{cartItems}}
+                    </div>
                 </div>
 
             </div>
@@ -35,7 +37,7 @@
                     </li>
                     {% for category in categories %}
                     <li class="dropdown">
-                        <a href="/category/"> {{category.name}}</a>
+                        <a href="/category/{{category.id}}"> {{category.name}}</a>
                     </li>
                     {% endfor %}
                     

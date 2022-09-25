@@ -1,14 +1,12 @@
- $("i").click(function(){
-     $(this).toggleClass("fa-thumbs-down");
- });
 
  var addtoCartButtons=document.getElementsByClassName("cart");
 
  for(var i=0; i<addtoCartButtons.length; i++){
     addtoCartButtons[i].addEventListener('click',function(){
         var productID=this.dataset.product;
+        var action=this.dataset.action;
         
-        addCookie(productID);
+        addCookie(productID, action);
         // UpdateUserOrder(productID);  this is for authenticatedusers
     })
  }
@@ -37,17 +35,33 @@
 //  }
 
 
+function addCookie(productId, action){
+	console.log('User is not authenticated')
 
-function addCookie(productId){
+	if (action == 'add'){
 
-    alert(productId);
-    if(cart[productId] == undefined){
-        cart[productId]={'quantity':1};
-    }
-    else{
-        cart[productId]['quantity']+=1;
-    }        
-    console.log(cart);
-    document.cookie='cart='+JSON.stringify(cart)+";domaain=;path=/";
-    
+        if (cart[productId] == undefined){
+        cart[productId] = {'quantity':1}
+
+        }else{
+            cart[productId]['quantity'] += 1
+        }
+        alert("item addded successfully")
+         
+
+	}
+
+	if (action == 'remove'){
+		cart[productId]['quantity'] -= 1
+
+		if (cart[productId]['quantity'] <= 0){
+			console.log('Item should be deleted')
+			delete cart[productId];
+		}
+	}
+	console.log('CART:', cart)
+	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+	
+	location.reload()
 }
+

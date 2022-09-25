@@ -1,0 +1,89 @@
+
+<html>
+    {% load static %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+        <title>YOUR CART </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'Assets/css/font-awesome/css/font-awesome.css' %}">
+      <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
+      <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
+      <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
+      
+    </head>
+        <body>
+            {% include "header.html" %}
+
+        <div class="" style=" height: 400px">
+                <div style="height: 100%; width: 80%;  margin-left: 150px">
+                    
+                    <div style="height: 100%; width: 40%;  margin-left: 70px; float: left">
+                        <h4 style="font-size: 40px;">Billing Details</h4>
+                        <div class="login-details" style="width: 100%;height: 550px">
+                            <form action="/accounts/login/">
+                            <div style="width: 100%;height: 80% ">
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="BAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="text" placeholder="Billing Address" name="BAddress" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="email"><i class="fa fa-envelope" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="BState" placeholder="Billing State" name="BState" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+                                                            
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="BCity"><i class="fa fa-home" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="text" placeholder="Billing City" name="BCity" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+    
+                                
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="BPincode"><i class="fa fa-key" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="text" placeholder="Billing Pin Code" name="BPincode" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div style="height: 100%; width: 45%;  margin-left: 30px; float: left">
+                        <h4 style="font-size: 40px;">Shipping Details</h4>
+                        <div class="login-details" style="width: 100%;height: 550px">
+                            
+                            <div style="width: 100%;height: 80% ">
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="SAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="text" placeholder="Shipping Address" name="SAddress" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="SState"><i class="fa fa-location-arrow" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="email" placeholder="Shipping State" name="SState" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>                            
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="SCity"><i class="fa fa-home" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="text" placeholder="Shipping City" name="SCity" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+    
+                                
+                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
+                                    <label for="SPin"><i class="fa fa-key" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
+                                    <input type="password" placeholder="Shipping Pin Code" name="SPin" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                </div>
+                                
+                                    
+                            <div style="width: 100%;height: 60px ">
+                                <button type="submit" style="background-color: #55f;width: 30%;height: 60px; margin-top: 10px; border-radius: 20px; color: white"><b>Check Out</b></button>
+                            </div>
+                        </div>
+    
+                    </div>                
+                </div>
+        </div>    
+    
+            {% include "supporters.html" %}
+            {% include "footer.html" %}  
+            
+        
+        </body>
+    </html>
+    

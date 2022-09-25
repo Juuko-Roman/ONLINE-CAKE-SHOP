@@ -6,11 +6,14 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('my_cart/', views.my_cart),
-    path('category/', views.category),
+    path('category/<int:id>', views.category,),
     path('order_details/', views.order_details),
     path('product_details/', views.product_details),
     path('track_order/', views.track_order),
     path('track_orders/', views.track_orders), 
     path('checkout/', views.checkout), 
+    path('likeIncrease/', views.likeIncrease),
+    path('likeDecrease/', views.likeDecrease),    
+
     # path('updateItem/', views.UpdateItem),     
 ]

@@ -51,9 +51,7 @@ div.middle-header .company{
 	font-family: arial;
 	font-size: 30px;
 }
-div.middle-header .company a{
 
-}
 
 div.middle-header .search{
 	float: left;
@@ -196,7 +194,7 @@ div.slider{
 	margin-left: 70px;
 	margin-top: 20px;
 	height: 250px;
-	overflow-wrap: ;
+
 }
 .fade{
 	animation-name: fade;
@@ -409,4 +407,29 @@ table div{
 	position: relative;
 	top: 0px;   
 
+}
+.quantity{
+	display: inline-block;
+		
+	padding-right:10px;
+	
+	
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.chg-quantity:hover{
+	opacity: .6;
+}
+
+
+.hidden{
+	display: none!important;
 }
