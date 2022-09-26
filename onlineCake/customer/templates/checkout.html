@@ -9,47 +9,18 @@
       <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
       <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
       <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
-      
+      <script src="{% static 'Assets/Js/getCookie.js' %}" ></script>
     </head>
         <body>
             {% include "header.html" %}
+            <div class="" style=" height: 400px; " >
+                <div style="height: 400px; width: 80%;  margin-left: 150px; overflow: hidden;  ">
 
-        <div class="" style=" height: 400px">
-                <div style="height: 100%; width: 80%;  margin-left: 150px">
-                    
-                    <div style="height: 100%; width: 40%;  margin-left: 70px; float: left">
-                        <h4 style="font-size: 40px;">Billing Details</h4>
-                        <div class="login-details" style="width: 100%;height: 550px">
-                            <form action="/accounts/login/">
-                            <div style="width: 100%;height: 80% ">
-                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
-                                    <label for="BAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="text" placeholder="Billing Address" name="BAddress" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
-                                </div>
-                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
-                                    <label for="email"><i class="fa fa-envelope" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="BState" placeholder="Billing State" name="BState" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
-                                </div>
-                                                            
-                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
-                                    <label for="BCity"><i class="fa fa-home" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="text" placeholder="Billing City" name="BCity" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
-                                </div>
-    
-                                
-                                <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
-                                    <label for="BPincode"><i class="fa fa-key" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="text" placeholder="Billing Pin Code" name="BPincode" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div style="height: 100%; width: 45%;  margin-left: 30px; float: left">
+                    <div style="height: 400px; width: 45%;  margin-left: 30px; float: left; ">
                         <h4 style="font-size: 40px;">Shipping Details</h4>
                         <div class="login-details" style="width: 100%;height: 550px">
-                            
+                            <form id="form" method="POST">
+                              {% csrf_token %}
                             <div style="width: 100%;height: 80% ">
                                 <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                     <label for="SAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
@@ -71,19 +42,69 @@
                                 </div>
                                 
                                     
-                            <div style="width: 100%;height: 60px ">
-                                <button type="submit" style="background-color: #55f;width: 30%;height: 60px; margin-top: 10px; border-radius: 20px; color: white"><b>Check Out</b></button>
+                                <div style="width: 100%;height: 60px ">
+                                    <button id="form-button" type="submit" style="background-color: #55f;width: 30%;height: 60px; margin-top: 10px; border-radius: 20px; color: white"><b>Check out</b></button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>         
+                    </div>
+                    <div style=" height: 400px; width:50%; float:left; padding-left:100px;  overflow: auto;">
+                        <h1>Payments</h1>
+                        <div id="smart-button-container">
+                            <div style="text-align: center;">
+                              <div id="paypal-button-container"></div>
                             </div>
                         </div>
-    
-                    </div>                
-                </div>
-        </div>    
+                    </div>
+                </div> 
+            </div> 
+          
     
             {% include "supporters.html" %}
             {% include "footer.html" %}  
             
-        
+            <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+            <script>
+              function initPayPalButton() {
+                paypal.Buttons({
+                  style: {
+                    shape: 'rect',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'paypal',
+                    
+                  },
+          
+                  createOrder: function(data, actions) {
+                    return actions.order.create({
+                      purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+                    });
+                  },
+          
+                  onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(orderData) {
+                      
+                      // Full available details
+                      console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+          
+                      // Show a success message within this page, e.g.
+                      const element = document.getElementById('paypal-button-container');
+                      element.innerHTML = '';
+                      element.innerHTML = '<h3>Thank you for your payment!</h3>';
+          
+                      // Or go to another URL:  actions.redirect('thank_you.html');
+                      
+                    });
+                  },
+          
+                  onError: function(err) {
+                    console.log(err);
+                  }
+                }).render('#paypal-button-container');
+              }
+              initPayPalButton();
+            </script>
         </body>
     </html>
     

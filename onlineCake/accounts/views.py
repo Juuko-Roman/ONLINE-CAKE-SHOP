@@ -70,6 +70,6 @@ def Aregister(request):
     categories=Category.objects.all()
     context={'categories':categories}         
     if request.method== "POST":
-        return redirect('/dashboard/login/')     
+        return redirect('/accounts/Alogin/')     
     else:
-        return render(request, 'register.html', context)          
+        return render(request, 'Aregister.html', context)          
