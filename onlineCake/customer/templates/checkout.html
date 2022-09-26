@@ -9,14 +9,65 @@
       <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
       <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
       <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
-      <script src="{% static 'Assets/Js/getCookie.js' %}" ></script>
+      <script type="text/javascript">
+        var user = '{{request.user}}'
+    
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+    
+        function getCookie(name) {
+            // Split cookie string and get all individual name=value pairs in an array
+            var cookieArr = document.cookie.split(";");
+    
+            // Loop through the array elements
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+    
+                /* Removing whitespace at the beginning of the cookie name
+                and compare it with the given string */
+                if(name == cookiePair[0].trim()) {
+                    // Decode the cookie value and return
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+    
+            // Return null if not found
+            return null;
+        }
+        var cart = JSON.parse(getCookie('cart'))
+    
+        if (cart == undefined){
+          cart = {}
+          console.log('Cart Created!', cart)
+                const d = new Date();
+                d.setTime(d.getTime() + (15 * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
+            }
+                console.log('Cart:', cart)
+      
+      </script>
     </head>
         <body>
             {% include "header.html" %}
-            <div class="" style=" height: 400px; " >
+            <div  style=" height: 400px; margin-top: 50px;" >
                 <div style="height: 400px; width: 80%;  margin-left: 150px; overflow: hidden;  ">
 
-                    <div style="height: 400px; width: 45%;  margin-left: 30px; float: left; ">
+                    <div  style="height: 400px; width: 45%;  margin-left: 30px; float: left; ">
                         <h4 style="font-size: 40px;">Shipping Details</h4>
                         <div class="login-details" style="width: 100%;height: 550px">
                             <form id="form" method="POST">
@@ -24,21 +75,21 @@
                             <div style="width: 100%;height: 80% ">
                                 <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                     <label for="SAddress"><i class="fa fa-map-marker" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="text" placeholder="Shipping Address" name="SAddress" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                    <input type="text" placeholder="Shipping Address" name="SAddress" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none" required/>
                                 </div>
                                 <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                     <label for="SState"><i class="fa fa-location-arrow" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="email" placeholder="Shipping State" name="SState" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                    <input type="text" placeholder="Shipping State" name="SState" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none" required/>
                                 </div>                            
                                 <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                     <label for="SCity"><i class="fa fa-home" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="text" placeholder="Shipping City" name="SCity" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                    <input type="text" placeholder="Shipping City" name="SCity" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none" required/>
                                 </div>
     
                                 
                                 <div style="width: 100%;height: 60px; padding-top: 10px; font-size: 15px">
                                     <label for="SPin"><i class="fa fa-key" style="position: absolute; padding: 15px;min-width: 40px "></i></label>
-                                    <input type="password" placeholder="Shipping Pin Code" name="SPin" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none"/>
+                                    <input type="text" placeholder="Shipping Pin Code" name="SPin" style="width: 100%; height: 50px;border: none; border-bottom: 1px solid #bbb; padding-left: 40px; outline: none" required/>
                                 </div>
                                 
                                     
@@ -49,7 +100,7 @@
                             </form>
                         </div>         
                     </div>
-                    <div style=" height: 400px; width:50%; float:left; padding-left:100px;  overflow: auto;">
+                    <div style=" height: 400px; width:50%; float:left; padding-left:100px;  overflow: auto;" id="payment-info" class="hidden">
                         <h1>Payments</h1>
                         <div id="smart-button-container">
                             <div style="text-align: center;">
@@ -64,8 +115,9 @@
             {% include "supporters.html" %}
             {% include "footer.html" %}  
             
-            <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+            <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
             <script>
+              var total='{{order.getCartTotal}}'
               function initPayPalButton() {
                 paypal.Buttons({
                   style: {
@@ -78,7 +130,9 @@
           
                   createOrder: function(data, actions) {
                     return actions.order.create({
-                      purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+                      purchase_units: [{
+                        "amount": {"currency_code":"USD","value":parseFloat(total).toFixed(2)}
+                      }]
                     });
                   },
           
@@ -88,12 +142,13 @@
                       // Full available details
                       console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
           
-                      // Show a success message within this page, e.g.
-                      const element = document.getElementById('paypal-button-container');
-                      element.innerHTML = '';
-                      element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                      // // Show a success message within this page, e.g.
+                      // const element = document.getElementById('paypal-button-container');
+                      // element.innerHTML = '';
+                      // element.innerHTML = '<h3>Thank you for your payment!</h3>';
           
                       // Or go to another URL:  actions.redirect('thank_you.html');
+                      submitFormData();
                       
                     });
                   },
@@ -104,6 +159,68 @@
                 }).render('#paypal-button-container');
               }
               initPayPalButton();
+            </script>
+
+            <script type="text/javascript">
+                        
+              var form = document.getElementById('form')
+              form.addEventListener('submit', function(e){
+                  e.preventDefault()
+                  console.log('Form Submitted...')
+                  document.getElementById('form-button').classList.add("hidden");
+                  document.getElementById('payment-info').classList.remove("hidden");
+                })
+          
+              
+                // document.getElementById('make-payment').addEventListener('click', function(e){
+                //   submitFormData()
+                // })
+                
+          
+                function submitFormData(){
+                  console.log('Payment button clicked')
+                  
+                var shippingInfo = {
+                  'address':null,
+                  'city':null,
+                  'state':null,
+                  'pinCode':null,
+                }
+                
+                shippingInfo.address = form.SAddress.value
+                shippingInfo.city = form.SCity.value
+                shippingInfo.state = form.SState.value
+                shippingInfo.pinCode = form.SPin.value                
+          
+                  console.log('Shipping Info:', shippingInfo)
+                  // console.log('User Info:', userFormData)
+          
+                  var url = "/processOrder/"
+                  console.log("sending to the url");
+                  fetch(url, {
+                    method:'POST',
+                    headers:{
+                      'Content-Type':'applicaiton/json',
+                      'X-CSRFToken':csrftoken,
+                    }, 
+                    body:JSON.stringify({'shipping':shippingInfo}),
+                    
+                  })
+                  .then((response) => response.json())
+                  .then((data) => {
+                  console.log('Success:', data);
+                  alert('Transaction completed');  
+          
+                  cart = {}
+                  const d = new Date();
+                d.setTime(d.getTime() + (15 * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
+          
+                  window.location.href="{% url 'index' %}"
+          
+                  })
+                }
             </script>
         </body>
     </html>

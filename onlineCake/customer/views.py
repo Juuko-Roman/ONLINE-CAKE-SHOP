@@ -1,7 +1,7 @@
 from http.client import HTTPResponse
-from itertools import product
+
 from multiprocessing import context
-from urllib import response
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
@@ -90,7 +90,39 @@ def track_orders(request):
 
 def checkout(request):
     categories=Category.objects.all()
-    context={'categories':categories}     
+
+    try:
+        cart=json.loads(request.COOKIES['cart'])
+    except:
+        cart={}
+
+ 
+    items=[]
+    order={'getCartTotal':0,'getCartItems':0}
+    cartItems=order['getCartItems']
+
+    for i in cart:
+        cartItems += cart[i]["quantity"]
+        product=Product.objects.get(id=i)
+        total=(product.priceAfterDiscount*cart[i]["quantity"]+product.shippingFee)
+
+        order['getCartTotal']+=total
+        order['getCartItems']+=cart[i]["quantity"]
+
+        item={
+            'product':{
+                'id':product.id,
+                'name':product.name,
+                'price':product.priceAfterDiscount,
+                'shippingFee':product.shippingFee,
+                'imageURL':product.image.url,
+            },
+            'quantity':cart[i]["quantity"],
+            'getTotal':total
+        }
+        items.append(item)
+
+    context={'categories':categories,'items':items,'order':order,'cartItems':cartItems}         
     return render(request, 'checkout.html',context)  
 
 def likeIncrease(request):
@@ -132,3 +164,32 @@ def searchResults(request):
     categories=Category.objects.all()
     context={'products':products,'categories':categories,'cartItems':cartItems, 'searchWord':searchWord}
     return render(request, 'searchResults.html',context)
+
+def processOrder(request):
+	# transaction_id = datetime.datetime.now().timestamp()
+	# data = json.loads(request.body)
+
+	# if request.user.is_authenticated:
+	# 	customer = request.user.customer
+	# 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	# else:
+	# 	customer, order = guestOrder(request, data)
+
+	# total = float(data['form']['total'])
+	# order.transaction_id = transaction_id
+
+	# if total == order.get_cart_total:
+	# 	order.complete = True
+	# order.save()
+
+	# if order.shipping == True:
+	# 	ShippingAddress.objects.create(
+	# 	customer=customer,
+	# 	order=order,
+	# 	address=data['shipping']['address'],
+	# 	city=data['shipping']['city'],
+	# 	state=data['shipping']['state'],
+	# 	zipcode=data['shipping']['zipcode'],
+	# 	)
+
+	return JsonResponse('Payment submitted..', safe=False)    
