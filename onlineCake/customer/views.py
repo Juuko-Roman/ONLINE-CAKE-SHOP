@@ -122,3 +122,13 @@ def likeDecrease(request):
 #     productId=data['productId']
 #     print(productId)
 #     return JsonResponse('item was added', safe=False)    
+
+def searchResults(request):
+    searchWord=request.POST['search']    
+    data = cartData(request)
+    cartItems = data['cartItems']
+    
+    products=Product.objects.filter(name__icontains=searchWord) 
+    categories=Category.objects.all()
+    context={'products':products,'categories':categories,'cartItems':cartItems, 'searchWord':searchWord}
+    return render(request, 'searchResults.html',context)

@@ -13,8 +13,11 @@
         <div class="middle-header">
             <div class="company"><a href="/"><span style="color:green">Online Cake System</span></a></div>
             <div class="search">
-                <input type="text" name="search" id="search" placeholder="Search here...">
-                <button type="submit"><li class="icon fa fa-search"></li></button>
+                <form action="/searchResults/" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="search" id="search" placeholder="Search here..." {% if searchWord %} value="{{searchWord}}" {% endif %}>
+                    <button type="submit"><li class="icon fa fa-search"></li></button>
+                </form>    
             </div>
             <div class="cart-details">
                 <div class="cart-total">CART - <span class="amount" style="color:green">UGX  &nbsp; &nbsp; ...</span></div>

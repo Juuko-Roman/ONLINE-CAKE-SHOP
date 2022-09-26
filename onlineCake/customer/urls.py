@@ -14,6 +14,6 @@ urlpatterns = [
     path('checkout/', views.checkout), 
     path('likeIncrease/', views.likeIncrease),
     path('likeDecrease/', views.likeDecrease),    
-
+    path('searchResults/', views.searchResults),  
     # path('updateItem/', views.UpdateItem),     
 ]
