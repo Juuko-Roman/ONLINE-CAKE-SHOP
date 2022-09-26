@@ -59,9 +59,14 @@ function addCookie(productId, action){
 			delete cart[productId];
 		}
 	}
-	console.log('CART:', cart)
-	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+	console.log('CART:', cart);
+    const d = new Date();
+    d.setTime(d.getTime() + (15 * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
 	
 	location.reload()
 }
+
+
 

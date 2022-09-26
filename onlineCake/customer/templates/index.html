@@ -52,9 +52,12 @@
 		if (cart == undefined){
 			cart = {}
 			console.log('Cart Created!', cart)
-			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
-		}
-		console.log('Cart:', cart)
+            const d = new Date();
+            d.setTime(d.getTime() + (15 * 24 * 60 * 60 * 1000));
+            let expires = "expires="+d.toUTCString();
+            document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
+        }
+            console.log('Cart:', cart)
 	
 	</script>    
 </head>
