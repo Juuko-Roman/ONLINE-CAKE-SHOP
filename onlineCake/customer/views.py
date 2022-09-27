@@ -181,10 +181,10 @@ def processOrder(request):
 	# ShippingDetails.objects.create(
 	# customer=customer,
 	# order=order,
-	# address=data['shipping']['SAddress'],
-	# city=data['shipping']['SCity'],
-	# state=data['shipping']['SState'],
-	# pinCode=data['shipping']['SPin'],
+	# Address=data['shipping']['SAddress'],
+	# City=data['shipping']['SCity'],
+	# State=data['shipping']['SState'],
+	# PinCode=data['shipping']['SPin'],
 	# 	)
 
 	return JsonResponse('Payment submitted..', safe=False)    
