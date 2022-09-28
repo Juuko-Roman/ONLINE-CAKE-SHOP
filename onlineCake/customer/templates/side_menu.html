@@ -4,7 +4,7 @@
             <li><span></span><a class="active" href="#"><i class="icon fa fa-align-justify fa-fw"></i>CATEGORIES</a></li>
             
             {% for category in categories %}
-            <li><a href="/category/"><i class="icon fa fa-square fa-fw" style="color: #aaa;"></i>{{category.name}}<i style="float: right;" class="fa fa-angle-right"></i></a></li>
+            <li><a href="/category/{{category.id}}"><i class="icon fa fa-square fa-fw" style="color: #aaa;"></i>{{category.name}}<i style="float: right;" class="fa fa-angle-right"></i></a></li>
             {% endfor %}
         </ul>
     </div>

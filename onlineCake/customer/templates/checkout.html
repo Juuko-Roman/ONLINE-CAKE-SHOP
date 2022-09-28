@@ -56,7 +56,9 @@
                 const d = new Date();
                 d.setTime(d.getTime() + (15 * 24 * 60 * 60 * 1000));
                 let expires = "expires="+d.toUTCString();
-                document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
+                document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/";
+                console.log("hi bro it is working well");
+                    window.location.href="{% url 'myCart' %}";
             }
                 console.log('Cart:', cart)
       
@@ -115,50 +117,50 @@
             {% include "supporters.html" %}
             {% include "footer.html" %}  
             
-            <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+            <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script> -->
             <script>
-              var total='{{order.getCartTotal}}'
-              function initPayPalButton() {
-                paypal.Buttons({
-                  style: {
-                    shape: 'rect',
-                    color: 'gold',
-                    layout: 'vertical',
-                    label: 'paypal',
+              // var total='{{order.getCartTotal}}'
+              // function initPayPalButton() {
+              //   paypal.Buttons({
+              //     style: {
+              //       shape: 'rect',
+              //       color: 'gold',
+              //       layout: 'vertical',
+              //       label: 'paypal',
                     
-                  },
+              //     },
           
-                  createOrder: function(data, actions) {
-                    return actions.order.create({
-                      purchase_units: [{
-                        "amount": {"currency_code":"USD","value":parseFloat(total).toFixed(2)}
-                      }]
-                    });
-                  },
+              //     createOrder: function(data, actions) {
+              //       return actions.order.create({
+              //         purchase_units: [{
+              //           "amount": {"currency_code":"USD","value":parseFloat(total).toFixed(2)}
+              //         }]
+              //       });
+              //     },
           
-                  onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(orderData) {
+              //     onApprove: function(data, actions) {
+              //       return actions.order.capture().then(function(orderData) {
                       
-                      // Full available details
-                      console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+              //         // Full available details
+              //         console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
           
-                      // // Show a success message within this page, e.g.
-                      // const element = document.getElementById('paypal-button-container');
-                      // element.innerHTML = '';
-                      // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              //         // // Show a success message within this page, e.g.
+              //         // const element = document.getElementById('paypal-button-container');
+              //         // element.innerHTML = '';
+              //         // element.innerHTML = '<h3>Thank you for your payment!</h3>';
           
-                      // Or go to another URL:  actions.redirect('thank_you.html');
-                      submitFormData();
+              //         // Or go to another URL:  actions.redirect('thank_you.html');
+              //         submitFormData();
                       
-                    });
-                  },
+              //       });
+              //     },
           
-                  onError: function(err) {
-                    console.log(err);
-                  }
-                }).render('#paypal-button-container');
-              }
-              initPayPalButton();
+              //     onError: function(err) {
+              //       console.log(err);
+              //     }
+              //   }).render('#paypal-button-container');
+              // }
+              // initPayPalButton();
             </script>
 
             <script type="text/javascript">
@@ -169,6 +171,9 @@
                   console.log('Form Submitted...')
                   document.getElementById('form-button').classList.add("hidden");
                   document.getElementById('payment-info').classList.remove("hidden");
+                  alert("this is my cart: ", cart)
+                  submitFormData()
+                  
                 })
           
               
@@ -217,7 +222,7 @@
                 let expires = "expires="+d.toUTCString();
                 document.cookie ='cart=' + JSON.stringify(cart) + ";" + expires + ";path=/"
           
-                  window.location.href="{% url 'index' %}"
+                  window.location.href="{% url 'orderDetails' %}"
           
                   })
                 }

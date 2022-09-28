@@ -7,11 +7,11 @@
                 <a href="/accounts/login/">| &nbsp <i class="icon fa fa-sign-in"></i> login |</a>
             </div>
             <div class="right-content">
-                <div class="track-order"><a href="/track_orders/">Track order</a></div>
+                <div class="track-order"><a href="/order_details/">Track order</a></div>
             </div>
         </div>
         <div class="middle-header">
-            <div class="company"><a href="/"><span style="color:green">Online Cake System</span></a></div>
+            <div class="company"><a href="/"><img height="60px" src="{% static 'Assets/images/logo.png' %}"></a></div>
             <div class="search">
                 <form action="/searchResults/" method="POST">
                     {% csrf_token %}

@@ -5,14 +5,17 @@ from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from . models import MoreDetails
+from customer .utils import *
 
 # Create your views here.
 
 from django.http import HttpResponse
 
 def login(request):
+    data = cartData(request)
+    cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories}         
+    context={'categories':categories,'cartItems':cartItems}         
     if request.method== "POST":
         
         
@@ -32,8 +35,11 @@ def login(request):
         return render(request, 'Customerlogin.html', context)
         
 def register(request):
+    data = cartData(request)
+    cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories}         
+    context={'categories':categories,'cartItems':cartItems}       
+          
     if request.method== "POST":
         username=request.POST['name']
         email=request.POST['email']
@@ -43,17 +49,17 @@ def register(request):
         password1=request.POST['password1']
         password2=request.POST['password2']
         if (password1==password2):
-            if User.objects.filter(username=username).exists():
+            if Customer.objects.filter(username=username).exists():
                 print("username taken")
-            elif User.objects.filter(email=email).exists(): 
+            elif Customer.objects.filter(email=email).exists(): 
                 print("email taken")
             else:
-                user=User.objects.create_user(username=username,email=email,password=password1)
+                user,created=Customer.objects.get_or_create(username=username,email=email,password=password1,gender=gender,phone=telephone,location=location)
                 user.save()
-                getUser = User.objects.get(email=email)
+                getUser = Customer.objects.get(email=email)
                 print(getUser)
-                moredetails = MoreDetails.objects.create(user=getUser,gender=gender,telephone=telephone,location=location)
-                moredetails.save()
+                # moredetails = MoreDetails.objects.create(user=getUser,gender=gender,telephone=telephone,location=location)
+                # moredetails.save()
         return redirect('/accounts/login/')     
     else:
         return render(request, 'register.html', context)  

@@ -69,8 +69,10 @@ def category(request,id):
     return render(request, 'category.html',context)
 
 def order_details(request):
+    data = cartData(request)
+    cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories}     
+    context={'categories':categories, 'cartItems':cartItems}     
     return render(request, 'order_details.html',context)
 
 def product_details(request):
@@ -89,6 +91,9 @@ def track_orders(request):
     return render(request, 'track_orders.html',context)   
 
 def checkout(request):
+    data = cartData(request)
+    cartItems = data['cartItems']    
+    
     categories=Category.objects.all()
 
     try:
@@ -166,25 +171,27 @@ def searchResults(request):
     return render(request, 'searchResults.html',context)
 
 def processOrder(request):
-	# transaction_id = datetime.datetime.now().timestamp()
-	# data = json.loads(request.body)
 
-	# order = order(request, data)
+    customer = Customer.objects.get(username = request.user) 
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
 
-	# total = float(data['form']['total'])
-	# order.transaction_id = transaction_id
+    order = getOrder(request, data)
 
-	# if total == order.get_cart_total:
-	# 	order.complete = True
-	# order.save()
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
 
-	# ShippingDetails.objects.create(
-	# customer=customer,
-	# order=order,
-	# Address=data['shipping']['SAddress'],
-	# City=data['shipping']['SCity'],
-	# State=data['shipping']['SState'],
-	# PinCode=data['shipping']['SPin'],
-	# 	)
+    if total == order.get_cart_total:
+        order.complete = True
+    order.save()
 
-	return JsonResponse('Payment submitted..', safe=False)    
+    ShippingDetail.objects.create(
+    customer=customer,
+    order=order,
+    Address=data['shipping']['SAddress'],
+    City=data['shipping']['SCity'],
+    State=data['shipping']['SState'],
+    PinCode=data['shipping']['SPin'],
+        )
+        
+    return JsonResponse('Payment submitted..', safe=False)    

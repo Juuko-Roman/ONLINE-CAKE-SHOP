@@ -46,23 +46,23 @@ def cartData(request):
     return {'cartItems':cartItems ,'order':order, 'items':items}
 
 	
-# def order(request, data):
-# 	
+def getOrder(request, data):
+	
+	customer = Customer.objects.get(username = request.user) 
+	cookieData = cookieCart(request)
+	items = cookieData['items']
 
-# 	cookieData = cookieCart(request)
-# 	items = cookieData['items']
+	order = Order.objects.create(
+		customer=customer,
+		complete=False,
+		)
 
-# 	order = Order.objects.create(
-# 		customer=customer,
-# 		complete=False,
-# 		)
-
-# 	for item in items:
-# 		product = Product.objects.get(id=item['id'])
-# 		orderItem = OrderItem.objects.create(
-# 			product=product,
-# 			order=order,
-# 			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
-# 		)
-# 	return order
+	for item in items:
+		product = Product.objects.get(id=item['id'])
+		orderItem = OrderItem.objects.create(
+			product=product,
+			order=order,
+			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
+		)
+	return order
 

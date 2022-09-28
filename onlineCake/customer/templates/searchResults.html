@@ -100,7 +100,11 @@
             <div class="text clear" >30 Day Money Back Guarantee.</div>
         </div>   
     </div>
-<h1 style="width: 100%; text-align:center ;  position: relative; margin-top: -80px; margin-bottom: 80px;" >you searched for "{{searchWord}}" : {% if not products  %} No Results found {% endif %}</h1>
+
+    <h1 style="width: 100%; text-align:center ;  position: relative; margin-top: -80px; margin-bottom: 80px;" >
+        you searched for "{{searchWord}}" : {% if not products  %} No Results found {% endif %}
+    </h1>
+    
     <div class="content">
         <div class="productsContainer" >
             {% for product in products %}
