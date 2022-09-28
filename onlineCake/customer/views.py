@@ -2,11 +2,12 @@ from http.client import HTTPResponse
 
 from multiprocessing import context
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from .models import *
 import json
 from .utils import *
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -72,8 +73,11 @@ def order_details(request):
     data = cartData(request)
     cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories, 'cartItems':cartItems}     
-    return render(request, 'order_details.html',context)
+    context={'categories':categories, 'cartItems':cartItems}    
+    if request.user.is_authenticated: 
+        return render(request, 'order_details.html',context)
+    else:    
+         return redirect('/accounts/login/',context)
 
 def product_details(request):
     categories=Category.objects.all()
@@ -91,6 +95,13 @@ def track_orders(request):
     return render(request, 'track_orders.html',context)   
 
 def checkout(request):
+    categories=Category.objects.all()
+    context={'categories':categories}         
+    
+    if request.user.is_authenticated: 
+        pass
+    else:    
+         return redirect('/accounts/login/',context)    
     data = cartData(request)
     cartItems = data['cartItems']    
     

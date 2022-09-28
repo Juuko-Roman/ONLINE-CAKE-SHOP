@@ -15,24 +15,29 @@ def login(request):
     data = cartData(request)
     cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories,'cartItems':cartItems}         
-    if request.method== "POST":
-        
-        
-        username=request.POST['name']
-        password=request.POST['password']
-        user=auth.authenticate(request,username=username,password=password)
-         
-        if user is not None:
+    context={'categories':categories,'cartItems':cartItems}       
+
+    if request.user.is_authenticated: 
+        return redirect('/checkout/',context)
+    else:    
+
+        if request.method== "POST":
             
-            auth.login(request,user)
-            return redirect('/checkout/') 
+            
+            username=request.POST['name']
+            password=request.POST['password']
+            user=auth.authenticate(request,username=username,password=password)
+            
+            if user is not None:
+                
+                auth.login(request,user)
+                return redirect('/checkout/') 
+            else:
+                
+                messages.info(request,'invalid credentials') 
+                return render(request, 'Customerlogin.html', context)  
         else:
-            
-            messages.info(request,'invalid credentials') 
-            return render(request, 'Customerlogin.html', context)  
-    else:
-        return render(request, 'Customerlogin.html', context)
+            return render(request, 'Customerlogin.html', context)
         
 def register(request):
     data = cartData(request)

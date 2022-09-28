@@ -2,9 +2,15 @@
 <header>
         <div class="top-header">
             <div class="left-content">
-                <a href="/my_cart/">| &nbsp <i class="icon fa fa-user"></i> <b>ROMAN</b> &nbsp &nbsp</a>
+                {% if user.is_authenticated %}
+                <a href="/profile/">| &nbsp <i class="icon fa fa-user"></i> <b>{{user.username}}'s profile</b> &nbsp &nbsp</a>
+                <a href="/my_cart/">| &nbsp  <i class="icon fa fa-shopping-cart"></i> My Cart &nbsp &nbsp</a>
+                <a href="/accounts/logout/">| &nbsp <i class="icon fa fa-sign-in"></i> logout |</a>
+                {% else %}
+                <a href="/accounts/login/">| &nbsp <i class="icon fa fa-user"></i> <b>My Account</b> &nbsp &nbsp</a>
                 <a href="/my_cart/">| &nbsp  <i class="icon fa fa-shopping-cart"></i> My Cart &nbsp &nbsp</a>
                 <a href="/accounts/login/">| &nbsp <i class="icon fa fa-sign-in"></i> login |</a>
+                {% endif %}                
             </div>
             <div class="right-content">
                 <div class="track-order"><a href="/order_details/">Track order</a></div>
