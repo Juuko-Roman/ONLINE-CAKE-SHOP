@@ -171,27 +171,27 @@ def searchResults(request):
     return render(request, 'searchResults.html',context)
 
 def processOrder(request):
-
-    customer = Customer.objects.get(username = request.user) 
+    print("id: ",request.user.customer)
+    customer = request.user.customer
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
 
     order = getOrder(request, data)
 
-    total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
-    if total == order.get_cart_total:
-        order.complete = True
+    order.complete = True
     order.save()
 
-    ShippingDetail.objects.create(
+    shipping=ShippingDetail.objects.create(
     customer=customer,
     order=order,
-    Address=data['shipping']['SAddress'],
-    City=data['shipping']['SCity'],
-    State=data['shipping']['SState'],
-    PinCode=data['shipping']['SPin'],
+    Address=data['shipping']['address'],
+    City=data['shipping']['city'],
+    State=data['shipping']['state'],
+    Pincode=data['shipping']['pinCode'],
         )
+    
+    shipping.save()
         
     return JsonResponse('Payment submitted..', safe=False)    

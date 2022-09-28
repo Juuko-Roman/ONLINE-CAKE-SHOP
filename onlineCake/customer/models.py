@@ -46,7 +46,7 @@ class ShippingDetail(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     Address  = models.CharField (max_length=50, default='', blank=True)
     State = models.CharField (max_length=50, default='', blank=True)
-    City  = models.DateField (max_length=50, default='', blank=True)
+    City  = models.CharField (max_length=50, default='', blank=True)
     Pincode  = models.IntegerField ()    
 
 class OrderItem(models.Model):

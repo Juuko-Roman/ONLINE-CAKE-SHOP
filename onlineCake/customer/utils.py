@@ -48,7 +48,7 @@ def cartData(request):
 	
 def getOrder(request, data):
 	
-	customer = Customer.objects.get(username = request.user) 
+	customer = request.user.customer
 	cookieData = cookieCart(request)
 	items = cookieData['items']
 
@@ -64,5 +64,6 @@ def getOrder(request, data):
 			order=order,
 			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
 		)
+		orderItem.save()
 	return order
 
