@@ -1,0 +1,353 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <script type = "text/javascript" >
+       function preback() {window.history.forward();}
+       setTimeout("preback()", 0);
+       window.onunload = function(){null;};
+       </script>
+        <meta charset="utf-8">
+        <title>ONLINE BAKERY SHOP</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+	
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+       
+        <!--wrapper start-->
+        <div class="wrapper">
+            <!--header menu start-->
+            <div class="header">
+                <div class="header-menu">
+                    <div class="title">Online <span>Bakery</span></div>
+                    <div class="sidebar-btn">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <ul>
+                    
+                        <li><a href="/index/"><i class="fas fa-power-off"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--header menu end-->
+            
+            <!--sidebar start-->
+            <div class="sidebar">
+                <div class="sidebar-menu">
+                    <center class="profile">
+                        <img src="{% static 'images/logo.png' %}" alt="">
+                        <p>Admin</p>
+                    </center>
+                    <li class="item">
+                        <a href="/dashboard/" class="menu-btn">
+                            <i class="fas fa-desktop"></i><span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="item" id="reports">
+                        <a href="#reports" class="menu-btn" >
+                            <i class="fa fa-bar-chart"></i><span>Products <i class="fas fa-chevron-down drop-down"></i></span>
+                        </a>
+                        <div class="sub-menu"> 
+            
+                            <a href="/addpdt/"><i class="fa-solid fa-chart-pie"></i><span>Add Product</span></a>
+                            <a href="#"><i class="fa-solid fa-chart-simple"></i><span>Product List</span></a>
+                             <a href="#"><i class="fa-solid fa-chart-pie"></i>Categories<span></span></a>
+                            
+                        </div>
+                </li>
+               
+                <li class="item" id="staff">
+                        <a href="#staff" class="menu-btn" >
+                            <i class="fa fa-users"></i><span>Orders<i class="fas fa-chevron-down drop-down"></i></span>
+                        </a>
+                        <div class="sub-menu"> 
+            
+                                <a href="/orders/"><i class="fa-solid fa-address-card"></i><span>Order Details</span></a>
+                                <!-- <a href="#"><i class="fa-solid fa-user-plus"></i><span>Reallocate Staff</span></a>
+                                <a href="#"><i class="fa-solid fa-users-line"></i><span>Overview Staff</span></a> -->
+                            
+                        </div>
+                </li>
+                <li class="item" id="product">
+                        <a href="#product" class="menu-btn" >
+                            <i class="fa fa-cart-arrow-down"></i><span>Customers<i class="fas fa-chevron-down drop-down"></i></span>
+                        </a>
+                        <div class="sub-menu"> 
+            
+                            <a href="/customer/"><i class="fa-solid fa-cart-plus"></i><span>Customer Lists</span></a>
+                            <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                            <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                            
+                        </div>
+                </li>
+                <li class="item" id="statistics">
+                    <a href="#statistics" class="menu-btn" >
+                        <i class="fa fa-cart-arrow-down"></i><span>Statistics<i class="fas fa-chevron-down drop-down"></i></span>
+                    </a>
+                    <div class="sub-menu"> 
+        
+                        <a href="/reports/"><i class="fa-solid fa-cart-plus"></i><span>Graphs</span></a>
+                        <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                        <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                        
+                    </div>
+            </li>
+            <li class="item" id="tran">
+                <a href="#tran" class="menu-btn" >
+                    <i class="fa fa-cart-arrow-down"></i><span>Transactions<i class="fas fa-chevron-down drop-down"></i></span>
+                </a>
+                <div class="sub-menu"> 
+    
+                    <a href="/transaction/"><i class="fa-solid fa-cart-plus"></i><span>Transactions Details</span></a>
+                    <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                    <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                    
+                </div>
+        </li>
+                </div>
+
+            </div>
+<!--            end of sidebar-->
+        
+            <div class="main-container">
+                <main>
+                    <h1>Dashboard</h1>
+                    <div class="date">
+                       <input type="date">
+                    </div>
+                    <div class="sight">
+                        <!-- START OF SALES -->
+                       <div class="sales">
+                        <span><i class="fa-solid fa-cart-plus"></i></span>
+                           <div class="mid">
+                               <div class="left">
+                                   <h3>TOTAL SALES </h3>
+                                   <h1>
+            
+            
+                                    get values from database
+                                   </h1>
+                               </div>
+                               <div class="gress">
+                                  
+                                  <div class="num">
+                                       <p></p>
+                                  </div>
+                               </div>
+                            </div>
+                           <small class="text-muted">Update Last 24 Hours</small>
+                       </div>
+               <!-- END OF SALES -->
+                <!-- StART OF INCOME -->
+                       <div class="income">
+                        <span><i class="fa-solid fa-cart-plus"></i></span>
+                           <div class="mid">
+                               <div class="left">
+                                   <h3>TOTAL ORDERS</h3>
+                                   <h1>
+                                  get values from database
+
+                                </h1>
+                               </div>
+                               <div class="gress">
+
+                                  <div class="num">
+                                       <p></p>
+                                  </div>
+                               </div>
+                           </div>
+                           <small class="text-muted">Update Last 24 Hours</small>
+                       </div>
+                   
+               <!-- END OF INCOME -->
+           
+                  <!-- START OF EXPENDITURE -->
+                  <div class="expenditure">
+                    <span><i class="fa-solid fa-cart-plus"></i></span>
+                   <div class="mid">
+                       <div class="left">
+                           <h3>TOTAL PRODUCTS</h3>
+                           <h1>
+                               get values from database
+                              
+                           </h1>
+                       </div>
+                       <div class="gress">
+
+                          <div class="num">
+                               <p></p>
+                          </div>
+                       </div>
+                   </div>
+                   <small class="text-muted">Update Last 24 Hours</small>
+               </div>
+           
+           </div>
+           <!-- END OF SIGHT -->
+<!-- START OF ADD CHart -->
+
+
+<div class="graph">
+    <div class="box"> 
+        <h2>SALES STATISTICS</h2>
+      
+        <canvas id="pie"></canvas>
+    </div>
+    
+        <div class="box">   
+            <h2>MONTHLY SALES</h2>
+           
+        <canvas id="bar"></canvas>
+        </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- end OF ADD CHart -->
+<!-- Start of Orders -->
+           <div class="order">
+                <h2>Lastest Orders</h2>
+                <table>
+                    <thead>
+                        
+                        <tr>
+                            <th>Names</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                        <tr>
+                            <td>get values in database</td>
+                            <td>get values in database</td>
+                            <td>get values in database</td>
+                            
+                            
+                            
+                        </tr>
+                     
+                    </tbody> 
+                             </table>
+           </div>
+                    
+<!--                     
+                    <div class="order">
+                <h2>Current Staff</h2>
+                             <table>
+                              <tbody>
+               
+                        <thead>
+                        
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Location</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                         
+                        <tr>
+                            <td>get values in database</td>
+                            <td>get values in database</td>
+                            <td>get values in database</td>
+                            <td>get values in database</td>
+                            
+                        </tr>
+                      
+                            
+                    </tbody>
+                </table>
+               
+           </div> -->
+
+
+
+           </div>
+           
+                </main>
+            </div>
+        </div>
+            
+          
+        <script scr="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+        <!-- <script src="graphs<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> -->
+        <script src="{% static 'graphs/chart.min.js' %}"></script>
+        <script>
+        var ctx = document.getElementById("bar").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Earnings in $',
+                    data: [2050, 1900, 2100, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
+                    backgroundColor: [
+                        'rgba(85,85,85, 1)'
+        
+                    ],
+                    borderColor: 'rgb(41, 155, 99)',
+        
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+<script src="{% static 'graphs/app.js' %}"></script>
+
+<script>
+var ctx2 = document.getElementById('pie').getContext('2d');
+var myChart2 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: ['TECNO', 'IPHONE', 'ITEL', 'OTHERS'],
+
+        datasets: [{
+            label: 'Employees',
+            data: [42, 12, 8, 6],
+            backgroundColor: [
+                'rgba(41, 155, 99, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(120, 46, 139,1)'
+
+            ],
+            borderColor: [
+                'rgba(41, 155, 99, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(120, 46, 139,1)'
+
+            ],
+            borderWidth: 1
+        }]
+
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+    
+    }
+});
+</script>
+
+    </body>
+</html>

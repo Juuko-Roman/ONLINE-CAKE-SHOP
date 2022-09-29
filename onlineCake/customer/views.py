@@ -196,10 +196,12 @@ def searchResults(request):
     return render(request, 'searchResults.html',context)
 
 def processOrder(request):
+    
     print("id: ",request.user.customer)
     customer = request.user.customer
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    print(data['payMethod'])
 
     order = getOrder(request, data)
 

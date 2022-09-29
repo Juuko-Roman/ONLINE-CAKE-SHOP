@@ -54,8 +54,10 @@ def getOrder(request, data):
 	cookieData = cookieCart(request)
 	items = cookieData['items']
 
+	print("payment method: ",data['payMethod']);
 	order = Order.objects.create(
 		customer=customer,
+		payMethod=data['payMethod'],
 		complete=False,
 		)
 	print(items)

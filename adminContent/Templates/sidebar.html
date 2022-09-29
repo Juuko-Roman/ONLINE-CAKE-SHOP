@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">s
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    </head>
+   
+     <!--sidebar start-->
+    
+    <body>
+      <div class="wrapper">
+          <!--sidebar start-->
+          <div class="sidebar">
+            <div class="sidebar-menu">
+                <center class="profile">
+                    <img src="{% static 'images/logo.png' %}" alt="">
+                    <p>Admin</p>
+                </center>
+                <li class="item">
+                    <a href="/dashboard/" class="menu-btn">
+                        <i class="fas fa-desktop"></i><span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="item" id="reports">
+                    <a href="#reports" class="menu-btn" >
+                        <i class="fa fa-bar-chart"></i><span>Products <i class="fas fa-chevron-down drop-down"></i></span>
+                    </a>
+                    <div class="sub-menu"> 
+        
+                        <a href="/dashboard/addpdt/"><i class="fa-solid fa-chart-pie"></i><span>Add Product</span></a>
+                        <a href="/dashboard/pdtlist/"><i class="fa-solid fa-chart-simple"></i><span>Product List</span></a>
+                         <a href="/dashboard/cat/"><i class="fa-solid fa-chart-pie"></i>Categories<span></span></a>
+                        
+                    </div>
+            </li>
+           
+            <li class="item" id="staff">
+                    <a href="#staff" class="menu-btn" >
+                        <i class="fa fa-users"></i><span>Orders<i class="fas fa-chevron-down drop-down"></i></span>
+                    </a>
+                    <div class="sub-menu"> 
+        
+                            <a href="/dashboard/orders/"><i class="fa-solid fa-address-card"></i><span>Order Details</span></a>
+                            <!-- <a href="#"><i class="fa-solid fa-user-plus"></i><span>Reallocate Staff</span></a>
+                            <a href="#"><i class="fa-solid fa-users-line"></i><span>Overview Staff</span></a> -->
+                        
+                    </div>
+            </li>
+            <li class="item" id="product">
+                    <a href="#product" class="menu-btn" >
+                        <i class="fa fa-cart-arrow-down"></i><span>Customers<i class="fas fa-chevron-down drop-down"></i></span>
+                    </a>
+                    <div class="sub-menu"> 
+        
+                        <a href="/dashboard/customer/"><i class="fa-solid fa-cart-plus"></i><span>Customer Lists</span></a>
+                        <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                        <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                        
+                    </div>
+            </li>
+            <li class="item" id="statistics">
+                <a href="#statistics" class="menu-btn" >
+                    <i class="fa fa-cart-arrow-down"></i><span>Statistics<i class="fas fa-chevron-down drop-down"></i></span>
+                </a>
+                <div class="sub-menu"> 
+    
+                    <a href="/dashboard/reports/"><i class="fa-solid fa-cart-plus"></i><span>Graphs</span></a>
+                    <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                    <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                    
+                </div>
+        </li>
+        <li class="item" id="tran">
+            <a href="#tran" class="menu-btn" >
+                <i class="fa fa-cart-arrow-down"></i><span>Transactions<i class="fas fa-chevron-down drop-down"></i></span>
+            </a>
+            <div class="sub-menu"> 
+
+                <a href="/dashboard/transaction/"><i class="fa-solid fa-cart-plus"></i><span>Transactions Details</span></a>
+                <!-- <a href="#"><i class="fa-solid fa-sack-dollar"></i><span>Edit Products</span></a>
+                <a href="#"><i class="fa-solid fa-hands-holding-child"></i>Live Chart<span></span></a> -->
+                
+            </div>
+    </li>
+            </div>
+
+        </div>
+<!--            end of sidebar-->
+
+      </div>
+    </body>
+</html>

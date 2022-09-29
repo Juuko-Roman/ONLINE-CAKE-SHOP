@@ -72,8 +72,7 @@ def register(request):
         return render(request, 'register.html', context)  
 
 def signout(request):
-    categories=Category.objects.all()
-    context={'categories':categories} 
+
     logout(request)
     messages.info(request,'succesfully logged out') 
     return redirect('/accounts/login/') 
@@ -90,7 +89,7 @@ def Alogin(request):
         if user is not None:
                 
             auth.login(request,user)
-            return redirect('/dashboard/home/') 
+            return redirect('/AdiminDashboard/') 
         else:
                 
             messages.info(request,'invalid credentials') 

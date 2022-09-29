@@ -27,6 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#emailing api
+SENDGRID_API_KEY = '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'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+
 
 # Application definition
 
@@ -38,8 +47,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
-    "adminPage",
     "customer",
+    'sendgrid',
+    "adminPage",
+    
 ]
 
 MIDDLEWARE = [

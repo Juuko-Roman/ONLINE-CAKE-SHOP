@@ -29,16 +29,15 @@ class Product(models.Model):
     priceAfterDiscount= models.IntegerField(default=0)
     shippingFee= models.IntegerField(default=0)
     category= models.ForeignKey(Category,on_delete=models.CASCADE,default=1 )
-    description= models.CharField(max_length=250, default='', blank=True, null= True)
+    company= models.CharField(max_length=250, default='', blank=True, null= True)
     image= models.ImageField(upload_to='customer/static/Assets/images/products/')
     likes=models.IntegerField(default=0)
 
 class Order(models.Model):
-
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     date = models.DateField (default=datetime.datetime.today)
     status = models.CharField (max_length=50, default='Pending', blank=True)
-    paymentMethod=models.CharField (max_length=50, default='', blank=True)
+    payMethod = models.CharField (max_length=50, default='', blank=True)
     complete = models.BooleanField (default=False)
     
 
@@ -47,7 +46,7 @@ class ShippingDetail(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     Address  = models.CharField (max_length=50, default='', blank=True)
     State = models.CharField (max_length=50, default='', blank=True)
-    City  = models.DateField (max_length=50, default='', blank=True)
+    City  = models.CharField (max_length=50, default='', blank=True)
     Pincode  = models.IntegerField ()    
 
 class OrderItem(models.Model):

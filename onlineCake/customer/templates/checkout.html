@@ -103,8 +103,15 @@
                         </div>         
                     </div>
                     <div style=" height: 400px; width:50%; float:left; padding-left:100px;  overflow: auto;" id="payment-info" class="hidden">
-                        <h1>Payments</h1>
+                        <h1 style="margin-bottom: 50px;">Payments</h1>
                         <div id="smart-button-container">
+                          <div style="text-align: center; margin-bottom: 20px;">
+                            <div >
+                              <button id="cash-payment" style="width:530px; height: 60px; font-size: 20px; border: none; border-radius: 5px; font-weight: bold;" >
+                                <img height="60px" width="60px" src="{% static 'Assets/images/cash-payment.png' %}">&nbsp; &nbsp; 
+                              CASH
+                            </button></div>
+                          </div>
                             <div style="text-align: center;">
                               <div id="paypal-button-container"></div>
                             </div>
@@ -151,7 +158,7 @@
                       // element.innerHTML = '<h3>Thank you for your payment!</h3>';
           
                       // Or go to another URL:  actions.redirect('thank_you.html');
-                      submitFormData();
+                      submitFormData("Credit Card");
                       
                     });
                   },
@@ -207,7 +214,12 @@
                   document.getElementById('form-button').classList.add("hidden");
                   document.getElementById('payment-info').classList.remove("hidden");
                   console.log("this is my cart: ", cart)       
-                  submitFormData()                          
+                  // submitFormData()                          
+                })
+
+              var cashPay = document.getElementById('cash-payment')
+              cashPay.addEventListener('click', function(e){                     
+                  submitFormData("Cash");                          
                 })
           
               
@@ -215,8 +227,10 @@
                 //   submitFormData()
                 // })
                 
+                
           
-                function submitFormData(){
+                function submitFormData(payMethod){
+
                   console.log('Payment button clicked')
                   
                 var shippingInfo = {
@@ -242,13 +256,13 @@
                       'Content-Type':'applicaiton/json',
                       'X-CSRFToken':csrftoken,
                     }, 
-                    body:JSON.stringify({'shipping':shippingInfo,'total':total}),
+                    body:JSON.stringify({'shipping':shippingInfo,'total':total,"payMethod":payMethod}),
                     
                   })
                   .then((response) => response.json())
                   .then((data) => {
                   console.log('Success:', data);
-                  alert('Transaction completed');  
+                  alert('Transaction completed! please CHECK your email for comfirmation');  
           
                   cart = {}
                   const d = new Date();

@@ -47,7 +47,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                         {% for orderItem in orderItems %}
                         <tr >
                             <td >
-                                <div style="margin-top: 60px">1</div>
+                                <div style="margin-top: 60px">{{forloop.counter}}</div>
                             </td>
                             
                             <td>
@@ -65,7 +65,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                             </td>`
                                                         
                             <td>
-                                <div >{{orderItem.order.paymentMethod}}</div>
+                                <div >{{orderItem.order.payMethod}}</div>
                             </td>
                             <td>
                                 <div >{{orderItem.date_added}}</div>
