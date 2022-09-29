@@ -6,36 +6,38 @@ def cookieCart(request):
 	#Create empty cart for now for non-logged in user
 	try:
 		cart = json.loads(request.COOKIES['cart'])
+		print("i have found my cart", cart)
 	except:
 		cart = {}
-		print('CART:', cart)
-
-	items = []
-	order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-	cartItems = order['get_cart_items']
+		print('CART:', cart)			
+	
+	items=[]
+	order={'getCartTotal':0,'getCartItems':0}
+	cartItems=order['getCartItems']
 
 	for i in cart:
-		#We use try block to prevent items in cart that may have been removed from causing error
-		try:	
-			if(cart[i]['quantity']>0): #items with negative quantity = lot of freebies  
-				cartItems += cart[i]['quantity']
+		cartItems += cart[i]["quantity"]
+		product=Product.objects.get(id=i)
+		total=(product.priceAfterDiscount*cart[i]["quantity"]+product.shippingFee)
 
-				product = Product.objects.get(id=i)
-				total = (product.price * cart[i]['quantity'])
+		order['getCartTotal']+=total
+		order['getCartItems']+=cart[i]["quantity"]
 
-				order['get_cart_total'] += total
-				order['get_cart_items'] += cart[i]['quantity']
-
-				item = {
+		item={
+			'id':product.id,
+			'product':{
 				'id':product.id,
-				'product':{'id':product.id,'name':product.name, 'price':product.price, 
-				'imageURL':product.imageURL}, 'quantity':cart[i]['quantity'],
-				}
-				items.append(item)
-
-		except:
-			pass
+				'name':product.name,
+				'price':product.priceAfterDiscount,
+				'shippingFee':product.shippingFee,
+				'imageURL':product.image.url,
+			},
+			'quantity':cart[i]["quantity"],
 			
+		}
+		items.append(item)
+	
+	print({'cartItems':cartItems ,'order':order, 'items':items})			
 	return {'cartItems':cartItems ,'order':order, 'items':items}
 
 def cartData(request):
@@ -56,14 +58,16 @@ def getOrder(request, data):
 		customer=customer,
 		complete=False,
 		)
-
+	print(items)
 	for item in items:
+		print("saving order")		
 		product = Product.objects.get(id=item['id'])
 		orderItem = OrderItem.objects.create(
 			product=product,
 			order=order,
-			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
+			quantity=item['quantity'], # negative quantity = freebies
 		)
+		print("saving order")
 		orderItem.save()
 	return order
 

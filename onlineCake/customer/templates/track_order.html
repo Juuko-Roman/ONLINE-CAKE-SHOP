@@ -19,34 +19,35 @@
       <td colspan="2"   style="padding-left:0px;"><div> <b>Order Tracking Details !</b></div></td>
       
     </tr>
+    {% for orderItem in orderItems %}
     <tr height="30">
       <td    ><b>order Id:</b></td>
-      <td>2</td>
+      <td>{{orderItem.order.id}}</td>
     </tr>
     
       <tr height="20">
       <td    ><b>At Date:</b></td>
-      <td>2/2/2022</td>
+      <td>{{orderItem.date_added}}</td>
     </tr>
      <tr height="20">
       <td    ><b>Status:</b></td>
-      <td>In process</td>
+      <td>{{orderItem.order.status}}</td>
     </tr>
-     <tr height="20">
-      <td    ><b>Remark:</b></td>
-      <td>delivered</td>
-    </tr>
-
-   
+        
     <tr>
       <td colspan="2"><hr /></td>
     </tr>
    
    <tr>
-   <td colspan="2">Order Not Process Yet</td>
-   </tr>
-      <tr><td colspan="2"><b>
+    {% if statusCheck %}
+    <td colspan="2"><b>
       Product Delivered successfully </b></td>
+   {% else %}
+   <td colspan="2">Order Still being Processed</td>
+    {% endif %}
+   </tr>
+   
+      {% endfor %}
    
 </table>
  </form>

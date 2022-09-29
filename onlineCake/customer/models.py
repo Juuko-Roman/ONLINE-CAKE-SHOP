@@ -37,7 +37,8 @@ class Order(models.Model):
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     date = models.DateField (default=datetime.datetime.today)
-    status = models.BooleanField (default=False)
+    status = models.CharField (max_length=50, default='Pending', blank=True)
+    paymentMethod=models.CharField (max_length=50, default='', blank=True)
     complete = models.BooleanField (default=False)
     
 
@@ -46,7 +47,7 @@ class ShippingDetail(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     Address  = models.CharField (max_length=50, default='', blank=True)
     State = models.CharField (max_length=50, default='', blank=True)
-    City  = models.CharField (max_length=50, default='', blank=True)
+    City  = models.DateField (max_length=50, default='', blank=True)
     Pincode  = models.IntegerField ()    
 
 class OrderItem(models.Model):

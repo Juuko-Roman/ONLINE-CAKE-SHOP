@@ -117,7 +117,7 @@
             {% include "supporters.html" %}
             {% include "footer.html" %}  
             
-            <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+            <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
             <script>
               var total='{{order.getCartTotal}}';
               console.log("total is ",total);
@@ -162,9 +162,9 @@
                 }).render('#paypal-button-container');
               }
               initPayPalButton();
-            </script> -->
+            </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&currency=USD&disable-funding=credit"></script>
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=AZK38s_4paHTIPcPrC6IwO_bMew3vfwyVTY1znCetu63OJRBLvgxyiZ2DsZRki0LMiR5zs1nZhson53k&currency=USD&disable-funding=credit"></script>
 
 <script>
   var total = '{{order.getCartTotal}}'
@@ -196,7 +196,7 @@
           }
 
       }).render('#paypal-button-container');
-  </script>
+  </script> -->
 
             <script type="text/javascript">
                         
@@ -206,7 +206,8 @@
                   console.log('Form Submitted...')
                   document.getElementById('form-button').classList.add("hidden");
                   document.getElementById('payment-info').classList.remove("hidden");
-                  alert("this is my cart: ", cart)                                 
+                  console.log("this is my cart: ", cart)       
+                  submitFormData()                          
                 })
           
               

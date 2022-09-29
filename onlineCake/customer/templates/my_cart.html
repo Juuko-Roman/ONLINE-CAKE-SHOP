@@ -62,20 +62,20 @@
     <body>
         {% include "header.html" %}
         <h1 style="text-align: center; border-bottom: 1px solid #eee; margin: 50px 0px">MY CART</h1>
-        <div class="container">
+        <div class="container" style="width: 90%;">
 
                 {% csrf_token %}
-                <table class="table table-bordered">
+                <table class="table ">
                     
-                    <thead>
-                        <tr> 	 	 	 	 	 	
-                            <th>Remove</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price Per unit</th>
-                            <th>Shipping Charge</th>
-                            <th>Grand Total</th>
+                    <thead class="" style="height: 100px; ">
+                        <tr class="bg-info" > 	 	 	 	 	 	
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Remove</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Image</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Product Name</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Quantity</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Price Per unit</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Shipping Charge</th>
+                            <th style="padding-bottom: 30px;padding-left: 20px; font-size: 20px;">Grand Total</th>
                         </tr>
                     </thead>
                     
@@ -84,7 +84,7 @@
                             {% for item in items%}
                         <tr>
                             <td>
-                                <div style="margin-top: 60px; margin-left: 30px;" class="del"><i style="font-size: 24px; color:red;  " class="fa fa-remove"></i></td></div>
+                                <div style="margin-top: 60px; margin-left: 30px;" class="del"><i style="font-size: 20px; color:red;  " class="fa fa-remove"></i></td></div>
                             </td>
                             
                             <td>

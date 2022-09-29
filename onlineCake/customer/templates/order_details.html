@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'Assets/css/bootstrap.min.css' %}">
   <script src="{% static 'Assets/Js/jquery.min.js' %}"></script>
   <script src="{% static 'Assets/Js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'Assets/Js/getCookie.js" ></script>
+  
   
   	<script language="javascript" type="text/javascript">
 var popUpWin=0;
@@ -25,60 +25,57 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 </head>
     <body>
         {% include "header.html" %}
-        
+        <h1 style="text-align: center; border-bottom: 1px solid #eee; margin: 50px 0px">THESE ARE YOUR ORDERS</h1>
         <div class="slider" >
         </div>
-        <div class="container">
+        <div class="container" style="width: 90%;">
             <form method="post">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr> 	 	 	 	 	 	
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price Per unit</th>
-                            <th>Grand Total</th>
-                            <th>payment method</th>
-                            <th>Order Date</th>
-                            <th>Action</th>
+                <table class="table ">
+                    <thead class="" style="height: 100px; ">
+                        <tr class="bg-info"> 	 	 	 	 	 	
+                            <th style="padding-bottom: 30px; font-size: 20px;">#</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Image</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Product Name</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Quantity</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Price Per unit</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">payment method</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Order Date</th>
+                            <th style="padding-bottom: 30px; font-size: 20px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
+                        {% for orderItem in orderItems %}
+                        <tr >
+                            <td >
                                 <div style="margin-top: 60px">1</div>
                             </td>
                             
                             <td>
-                                <div style="margin-top: 1px;"><img src="{% static 'Assets/images/products/birthday1.jpeg' %}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
+                                <div style="margin-top: 1px;"><img src="{{orderItem.product.image.url}}" alt="alt" style="object-fit: contain" width="150px" height="150px" /></div>
                             </td>
-                            <td>
-                                <div >CAKE</div>
+                            <td class="border-left">
+                                <div >{{orderItem.product.name}}</div>
                             </td>
                             
                             <td>
-                                <div >3</div>
+                                <div >{{orderItem.quantity}}</div>
                             </td>
                             <td>
-                                <div >UGX 200000</div>
+                                <div >UGX {{orderItem.product.priceAfterDiscount}}</div>
                             </td>`
-                            
+                                                        
                             <td>
-                                <div >UGX 250000</div>
+                                <div >{{orderItem.order.paymentMethod}}</div>
                             </td>
                             <td>
-                                <div >Paypal</div>
+                                <div >{{orderItem.date_added}}</div>
                             </td>
                             <td>
-                                <div >2/6/2020</div>
-                            </td>
-                            <td>
-                                <div ><a href="javascript:void(0);" onClick="popUpWindow('/track_order/?oid=5');" title="Track order">Track</a></div>
+                                <div ><a href="javascript:void(0);" onClick="popUpWindow('/track_order/{{orderItem.id}}');" title="Track order">Track</a></div>
                             </td>
                             
                         </tr>
-                        
+                        {% endfor  %}
                     </tbody>
                 </table>
         </div>

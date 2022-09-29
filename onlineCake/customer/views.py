@@ -73,20 +73,34 @@ def order_details(request):
     data = cartData(request)
     cartItems = data['cartItems']    
     categories=Category.objects.all()
-    context={'categories':categories, 'cartItems':cartItems}    
-    if request.user.is_authenticated: 
-        return render(request, 'order_details.html',context)
-    else:    
-         return redirect('/accounts/login/',context)
 
+    if request.user.is_authenticated: 
+        pass
+    else:
+        context={'categories':categories, 'cartItems':cartItems}        
+        return redirect('/accounts/login/',context)     
+
+    order=Order.objects.filter(customer=request.user.customer).only('id').all()
+    orderItems=OrderItem.objects.filter(order__in=order)
+    context={'categories':categories, 'cartItems':cartItems,'orderItems':orderItems}    
+    
+    return render(request, 'order_details.html',context)
+    
 def product_details(request):
     categories=Category.objects.all()
     context={'categories':categories}     
     return render(request, 'product_details.html',context)
 
-def track_order(request):
-    categories=Category.objects.all()
-    context={'categories':categories}     
+def track_order(request,id):
+    orderItems=OrderItem.objects.filter(id=id)
+    
+    order=Order.objects.filter(id=orderItems[0].order.id)
+    print(order)
+    if order[0].status=="Delivered":
+        statusCheck=True
+    else:
+        statusCheck=False
+    context={'orderItems':orderItems,'statusCheck':statusCheck}     
     return render(request, 'track_order.html',context)
 
 def track_orders(request):
