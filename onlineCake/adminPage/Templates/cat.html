@@ -22,70 +22,23 @@
            <h2>Category List</h2>
               <table>
                 <thead>
-                
+                    <th style="height: 80px">CATEGORY NAME</th>
+                    <th>MODIFY</th>
+                    <th>DELETE</th>
+                </thead>
+
+                <tbody>          
+                    {% for category in categories %}      
                  <tr>
-                    <th>Bread</th>
-                    <th>Cakes</th>
-                    <th>Cookies</th>
-                    <th>Doughnuts</th>
-                   
+                    
+                    <td>{{category.name}}</td>
+                    <td><i style="font-size: 20px; color:blue;  " class="fa fa-edit"></i></td>
+                    <td><i style="font-size: 20px; color:red;  " class="fa fa-remove"></i></td>                                  
                 </tr>
-            </thead>
-            <tbody>
-                
-              
-                <tr>
-                    
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-             
-            </tbody> 
+                {% endfor %}  
+            
+                </tbody>
+           
                      </table>
                     </div>
                     </main>

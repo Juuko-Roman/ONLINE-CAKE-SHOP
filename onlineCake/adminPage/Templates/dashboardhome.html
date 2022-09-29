@@ -28,7 +28,7 @@
                 <main>
                     <h1>Dashboard</h1>
                     <div class="date">
-                       <input type="date">
+                       {{date}}
                     </div>
                     <div class="sight">
                         <!-- START OF SALES -->
@@ -37,12 +37,13 @@
                            <div class="mid">
                                <div class="left">
                                    <h3>TOTAL SALES </h3>
-                                   <h1>
-            
-            
-                                    get values from database
-                                   </h1>
+                                   
                                </div>
+                               ugx 
+                               <h1  style="text-align: center; font-size: 60px;">
+                                <a href="/AdiminDashboard/pdtlist/">{{totalSales}}</a>
+        
+                              </h1>
                                <div class="gress">
                                   
                                   <div class="num">
@@ -59,11 +60,12 @@
                            <div class="mid">
                                <div class="left">
                                    <h3>TOTAL ORDERS</h3>
-                                   <h1>
-                                  get values from database
-
-                                </h1>
+                                   
                                </div>
+                               <h1 style="text-align: center; font-size: 60px;">
+                                <a href="/AdiminDashboard/orders/">{{orderTotal}}</a>
+
+                              </h1>
                                <div class="gress">
 
                                   <div class="num">
@@ -82,11 +84,12 @@
                    <div class="mid">
                        <div class="left">
                            <h3>TOTAL PRODUCTS</h3>
-                           <h1>
-                               get values from database
-                              
-                           </h1>
+                           
                        </div>
+                       <h1  style="text-align: center; font-size: 60px;">
+                        <a href="/AdiminDashboard/pdtlist/">{{productTotal}}</a>
+
+                      </h1>
                        <div class="gress">
 
                           <div class="num">
@@ -130,28 +133,32 @@
            <div class="order">
                 <h2>Lastest Orders</h2>
                 <table>
-                    <thead>
-                        
-                        <tr>
-                            <th>Names</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                      
-                        <tr>
-                            <td>get values in database</td>
-                            <td>get values in database</td>
-                            <td>get values in database</td>
-                            
-                            
-                            
-                        </tr>
+                    <thead >
+                    
                      
-                    </tbody> 
-                             </table>
+                        <th style="height: 80px; width: 30px;">#</th>
+                        <th>Customer Email</th>
+                        <th style="width: 150px">Status</th>
+                        <th>Order Date</th>
+                        <th style="width: 150px">Method Of Payment</th>
+                        <th>Order Details</th>
+                        
+                    
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{order.customer.email}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.date}}</td>
+                        <td>{{order.payMethod}}</td>
+                        <td><a href="#">view details</a></td>
+                                                         
+                    </tr>
+                 {% endfor %}
+                </tbody> 
+                         </table>
            </div>
                     
 <!--                     
@@ -203,7 +210,7 @@
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [{
-                    label: 'Earnings in $',
+                    label: 'Earnings in UGX',
                     data: [2050, 1900, 2100, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
                     backgroundColor: [
                         'rgba(85,85,85, 1)'
@@ -226,7 +233,7 @@ var ctx2 = document.getElementById('pie').getContext('2d');
 var myChart2 = new Chart(ctx2, {
     type: 'pie',
     data: {
-        labels: ['TECNO', 'IPHONE', 'ITEL', 'OTHERS'],
+        labels: ['CAKES', 'BREAD', 'COOKIES', 'BUNS'],
 
         datasets: [{
             label: 'Employees',

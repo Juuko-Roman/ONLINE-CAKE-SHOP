@@ -6,6 +6,7 @@ from datetime import datetime
 from django.core.mail import send_mail,BadHeaderError
 from django.contrib.auth.decorators import login_required
 from .forms import ContactForm
+from customer.models import *
 # from .sendsms import sending
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -96,26 +97,58 @@ def contact(request):
 #     })
 
 def cat(request):
-	return render (request, "cat.html")
+	categories=Category.objects.all()
+	products=[]
+	
+	for category in categories:
+		products.append(Product.objects.filter(category=category.id))
+		
+	context={'categories':categories,'products':products}
+	return render (request, "cat.html",context)
 
 def transaction(request):
-	return render (request, "transaction.html")
+	orders=Order.objects.all()
+	context={'orders':orders}
+	return render (request, "transaction.html",context)
 	
 def pdtlist(request):
-	return render (request, "transaction.html")
+	products=Product.objects.all()
+	context={'products':products}
+	return render (request, "pdtlist.html",context)
 
 def customer(request):
-	return render (request, "customer.html")
+	customers=Customer.objects.all()
+	context={'customers':customers}
+	return render (request, "customer.html",context)
 
 def orders(request):
-	return render (request, "orders.html")
+	orders=Order.objects.all()
+	context={'orders':orders}
+	return render (request, "orders.html",context)
 	
 def reports(request):
-	return render (request, "reports.html")
+	context={}
+	return render (request, "reports.html",context)
 
 def dashboard(request):
+	orders=Order.objects.all()
+	orderTotal=0
+	for order in orders:
+		orderTotal+=1
+
+	products=Product.objects.all()
+	productTotal=0
+	for product in products:
+		productTotal+=1		
+
+	orderItems=OrderItem.objects.all()
+	totalSales=0
+	for orderItem in orderItems:
+		totalSales+=orderItem.quantity*orderItem.product.priceAfterDiscount+orderItem.product.shippingFee
+	
+	context={'orderTotal':orderTotal,'productTotal':productTotal,'totalSales':totalSales,'date':datetime.datetime.today,'orders':orders}
 	if request.user.is_authenticated:
-		return render(request, "dashboardhome.html")
+		return render(request, "dashboardhome.html",context)
 	else:
 		return redirect('/accounts/Alogin/')
 

@@ -24,68 +24,28 @@
                 <thead>
                 
                  <tr>
-                    <th>Names</th>
+                    <th>User Name</th>
                     <th>Email</th>
                     <th>Telephone</th>
+                    <th>Gender</th>
+                    <th>Location</th>
+                    <th>Registration date</th>
+                    <th>Customer orders</th>
                    
                 </tr>
             </thead>
             <tbody>
-              
+              {% for customer in customers %}
                 <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-        
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                   
-                    
-                    
-                    
-                </tr>
-                <tr>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    <td>get values in database</td>
-                    
-                    
-                    
-                </tr>
-             
+                    <td>{{customer.username}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.phone}}</td>
+                    <td>{{customer.gender}}</td>
+                    <td>{{customer.location}}</td>
+                    <td>{{customer.regDate}}</td> 
+                    <td><a href="#">view orders</a></td>
+                </tr>  
+                {% endfor %}    
             </tbody> 
                      </table>
                     </div>
