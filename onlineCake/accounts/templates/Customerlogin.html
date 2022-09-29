@@ -51,7 +51,13 @@
         {% include "supporters.html" %}
         {% include "footer.html" %} 
             
-            <script src="{% static 'Assets/Js/image-slider.js" ></script>        
+            <script src="{% static 'Assets/Js/image-slider.js'%}" ></script> 
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script>
+                {% for msg in messages%}
+                swal('{{msg}}')
+                {%endfor%}
+            </script>       
         </body>
     </html>
     
