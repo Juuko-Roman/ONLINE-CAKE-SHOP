@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 #emailing api
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = ''
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
