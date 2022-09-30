@@ -130,8 +130,9 @@ def reports(request):
 	context={}
 	return render (request, "reports.html",context)
 
-def viewOrderDetails(request):
-	context={}
+def viewOrderDetails(request,id):
+orderItems=OrderItem.objects.filter(order=id)
+	context={'orderItems':orderItems}
 	return render (request, "reports.html",context)
 
 def changeOrderStatus(request):
