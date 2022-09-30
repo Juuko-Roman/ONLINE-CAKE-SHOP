@@ -220,5 +220,7 @@ def processOrder(request):
         )
     
     shipping.save()
+    
+    send email(request)
         
     return JsonResponse('Payment submitted..', safe=False)    
