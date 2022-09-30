@@ -1,5 +1,16 @@
 import json
 from .models import *
+from http.client import HttpResponse
+from django.shortcuts import render,redirect
+from django.template.loader import get_template, render_to_string
+from django.template import Context
+from datetime import datetime
+from django.core.mail import send_mail,BadHeaderError
+from django.contrib.auth.decorators import login_required
+from .forms import ContactForm
+# from .sendsms import sending
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 def cookieCart(request):
 
@@ -73,3 +84,26 @@ def getOrder(request, data):
 		orderItem.save()
 	return order
 
+
+def sendEmail(request):
+        
+			subject = "Online uhy Cake Receipt" 
+			email= form.cleaned_data['email'],  
+			body= render_to_string("receipt.html",{'today':datetime.today()} )
+			
+        
+			message = Mail(
+				from_email='onlinebakery5@gmail.com',
+				to_emails=form.cleaned_data['email'],
+				subject='Cake Receipt',
+				html_content=body
+    )
+			try:
+				sg = SendGridAPIClient('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')
+				sg.content_subtype = "html"
+				response = sg.send(message)
+				print(response.status_code)
+				print(response.body)
+				print(response.headers)
+			except Exception as e:
+				print(str(e))
