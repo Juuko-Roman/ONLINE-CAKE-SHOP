@@ -130,6 +130,29 @@ def reports(request):
 	context={}
 	return render (request, "reports.html",context)
 
+def viewOrderDetails(request):
+	context={}
+	return render (request, "reports.html",context)
+
+def changeOrderStatus(request):
+	context={}
+	return render (request, "reports.html",context)
+
+
+def deleteCategory(request):
+	context={}
+	return render (request, "reports.html",context)
+
+
+def editCategory(request):
+	context={}
+	return render (request, "reports.html",context)
+
+
+def deleteProduct(request):
+	context={}
+	return render (request, "reports.html",context)
+
 def dashboard(request):
 	orders=Order.objects.all()
 	orderTotal=0
@@ -153,4 +176,11 @@ def dashboard(request):
 		return redirect('/accounts/Alogin/')
 
 def addpdt(request):
-	return render (request, "addpdt.html")
+     If request.method==POST:
+         pass()
+     else:
+	 return render (request, "addpdt.html")
+
+def editProduct(request):
+	context={}
+	return render (request, "reports.html",context)
