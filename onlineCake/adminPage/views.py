@@ -139,17 +139,42 @@ def changeOrderStatus(request):
 	return render (request, "reports.html",context)
 
 
-def deleteCategory(request):
+def deleteCategory(request,id):
+member = Members.objects.get(id=id)
+  member.delete()
 	context={}
 	return render (request, "reports.html",context)
 
 
-def editCategory(request):
-	context={}
+def editCategory(request,id):
+mymember = Members.objects.get(id=id)
+  context = {
+    'mymember': mymember}
 	return render (request, "reports.html",context)
 
+def editCategoryRec(request,id):
+first = request.POST['first']
+  last = request.POST['last']
+  member = Members.objects.get(id=id)
+  member.firstname = first
+  member.lastname = last
+  member.save()
+return render (request, "reports.html",context)
 
-def deleteProduct(request):
+
+def editProductRec(request,id):
+first = request.POST['first']
+  last = request.POST['last']
+  member = Members.objects.get(id=id)
+  member.firstname = first
+  member.lastname = last
+  member.save()
+return render (request, "reports.html",context)
+
+
+def deleteProduct(request,id):
+    member = Members.objects.get(id=id)
+  member.delete()
 	context={}
 	return render (request, "reports.html",context)
 
@@ -177,10 +202,16 @@ def dashboard(request):
 
 def addpdt(request):
      If request.method==POST:
-         pass()
+         x = request.POST['first']
+  y = request.POST['last']
+  member = Members(firstname=x, lastname=y)
+  member.save()
      else:
 	 return render (request, "addpdt.html")
 
-def editProduct(request):
-	context={}
+def editProduct(request,id):
+mymember = Members.objects.get(id=id)
+  context = {
+    'mymember': mymember,}
+	
 	return render (request, "reports.html",context)
