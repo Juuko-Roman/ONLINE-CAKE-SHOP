@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from .models import *
 import json
 from .utils import *
+from django.db.models import Q
 from django.contrib.auth import logout
 
 # Create your views here.
@@ -190,7 +191,7 @@ def searchResults(request):
     data = cartData(request)
     cartItems = data['cartItems']
     
-    products=Product.objects.filter(name__icontains=searchWord) 
+    products=Product.objects.filter(Q(name__icontains=searchWord)|Q(company__icontains=searchWord)) 
     categories=Category.objects.all()
     context={'products':products,'categories':categories,'cartItems':cartItems, 'searchWord':searchWord}
     return render(request, 'searchResults.html',context)
